@@ -1,5 +1,5 @@
 #include <iostream>
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -265,6 +265,16 @@ bool initOpenGL()
 
     // Initialize OpenGL context with.
     glfwMakeContextCurrent(g_window);
+
+    // Set internal GLEW variable to activate OpenGL core profile.
+    glewExperimental = true;
+
+    // Initialize GLEW functions.
+    if (glewInit() != GLEW_OK) 
+    {
+        cout << "Failed to initialize GLEW" << endl;
+        return false;
+    }
 
     // Ensure we can capture the escape key being pressed.
     glfwSetInputMode(g_window, GLFW_STICKY_KEYS, GL_TRUE);
